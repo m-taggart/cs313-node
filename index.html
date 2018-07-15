@@ -3,7 +3,7 @@
   <head>
     <title>Customer Service Chat</title>
 
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
  	<script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<style>
@@ -53,12 +53,7 @@
     		</div>
     	</div>
     </div>
-<!-- 
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
- -->
+    
      <script>
     	$(function () {
     		var socket = io.connect();
@@ -69,7 +64,7 @@
     		var $userFormArea = $('#userFormArea');
     		var $userForm = $('#userForm');
     		var $users = $('#users');
-    		var $username = $('#username');		
+    		var $username = $('#username');	
     
     		$messageForm.submit(function(e) {
     			e.preventDefault();

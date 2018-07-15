@@ -1,4 +1,5 @@
 var express = require("express");
+var pg = require('pg');
 var app = express();
 
 const { Pool } = require("pg");
@@ -6,13 +7,53 @@ const { Pool } = require("pg");
 const connectionString = process.env.DATABASE_URL || "postgres://webchatuser:customerservice@localhost:5432/webchat";
 const pool = new Pool({connectionString:connectionString});
 
+//new code
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-app.set("port", (process.env.PORT || 5000));
+users = [];
+connections = [];
+
+http.listen(process.env.PORT || 5000);
+console.log('Listening at port: 5000');
+
+// app.set("port", (process.env.PORT || 5000));
 
 app.get("/getchat", getChat)
 
-app.listen(app.get("port"), function() {
-	console.log("Now listening for connection on port: ", app.get("port"));
+//app.listen went here 
+
+app.get('/', function(req, res) {
+// 	res.send('<h1>Hello World</h1>');
+	res.sendFile(__dirname + '/index.html');
+});
+
+io.sockets.on('connection', function(socket){
+	connections.push(socket);
+	console.log('Connected: %s sockets connected', connections.length);
+	
+	socket.on('disconnect', function(data){
+		users.splice(users.indexOf(socket.username), 1);
+		updateUsernames();
+		connections.splice(connections.indexOf(socket), 1);
+		console.log('Disconnected: %s sockets connected', connections.length);
+	});
+	
+	socket.on('send message', function(data) {
+		io.sockets.emit('new message', {msg: data, user: socket.username});
+	});
+	
+	socket.on('new user', function(data, callback) {
+		callback(true);
+		socket.username = data;
+		users.push(socket.username);
+		updateUsernames();
+	});
+	
+	function updateUsernames(){
+		io.sockets.emit('get users', users);
+	}
+
 });
 
 //business logic
@@ -56,3 +97,24 @@ function getChatFromDb (chatId, callback) {
 		 
 	});
 }
+
+// post chat
+// router.post('/chat', function(req, res, next) {
+//   pg.connect(connectionString, function(err, client, done) {
+//     if (err) {
+//       return console.error('error fetching client from pool', err);
+//     }
+//     console.log("connected to database");
+//     client.query('INSERT INTO chat(dateTime, messages, username) VALUES($1, $2, $3) returning chatId', [req.body.dateTime, req.body.messages, req.body.username], function(err, result) {
+//       done();
+//       if(err) {
+//         return console.error('error running query', err);
+//       }
+//       res.send(result);
+//     });
+//   });
+// });
+
+// app.listen(app.get("port"), function() {
+// 	console.log("Now listening for connection on port: ", app.get("port"));
+// });
