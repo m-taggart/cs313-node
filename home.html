@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Surf and Sunshine Homepage</title>
+ 	<link rel="stylesheet" href="style.css"> 
+ 	 <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+ 	<style>
+ 		@import url('https://fonts.googleapis.com/css?family=Fredoka+One');
+body {
+
+}
+
+#logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 40%;
+	max-width: 200px;
+	padding: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#link{
+	display: flex;
+	justify-content: flex-end;
+}
+
+#chatButton {
+	background-color: #55ad73;
+	padding: 10px;
+	height: 75px;
+	width: 275px;
+	text-align: center;
+	margin-top: 25px;
+}
+
+.gallery {
+	display: flex;
+	justify-content: center;
+	margin: 0px;
+	padding: 0;	
+}
+
+.photo{
+	margin: 10px;
+	padding: 0;
+}
+
+h1, h2, h3 {
+	font-family: 'Fredoka One', Arial, sans-serif;
+	text-align: center;
+	color: #05879e;
+}
+
+p, a {
+	font-family: 'Fredoka One', Arial, sans-serif;
+	color: white;
+	text-decoration: none;
+	font-size: 1.2em;
+}
+
+#chatButton:hover, a:hover {
+	background-color: orange;
+}
+
+#chatButton:active, a:active {
+	text-decoration: underline;
+	color: lightgray;
+}
+ 	</style>
+  </head>
+  <body>
+  	<div id="link">
+  		<a href="https://whispering-scrubland-72181.herokuapp.com/customerservice" id="chatButton">Click Here <br> to Chat with <br> Customer Service</a>
+<!--   		change to https://whispering-scrubland-72181.herokuapp.com/customerservice -->
+<!-- http://localhost:5000/customerservice -->
+  	</div>
+  	
+  	  	<img src="images/biglogo.png" alt="Surf and Sunshine Logo" id="logo" height="200" width="200" />
+  	  	
+  	 <h2 id="header">Check out our photo gallery <br/> #SurfsAndSun</h2>
+  	<div class="gallery">
+  		<img src="images/photo3.jpg" alt="Surf and Sunshine Gallery" class="photo" height="200" width="200" />
+  		<img src="images/photo1.jpg" alt="Surf and Sunshine Gallery" class="photo" height="200" width="200" />
+  		<img src="images/photo2.jpg" alt="Surf and Sunshine Gallery" class="photo" height="200" width="200" />
+  	</div>
+  	<br/>
+  	<div class="gallery">
+  		<img src="images/photo5.jpg" alt="Surf and Sunshine Gallery" class="photo" height="200" width="200" />
+  		<img src="images/photo6.jpg" alt="Surf and Sunshine Gallery" class="photo" height="200" width="200" />
+  		<img src="images/photo4.jpg" alt="Surf and Sunshine Gallery" class="photo" height="200" width="200" />
+  		<br>
+  	</div>
+  </body>
+</html>

@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <title>Customer Service Chat</title>
-
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
  	<script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -18,16 +17,22 @@
  
   </head>
   <body>
-   
+  	<a href="https://whispering-scrubland-72181.herokuapp.com/home.html">
+   		<img src="images/biglogo.png" alt="Surf and Sunshine Logo" id="logo" height="200" width="200" />
+   	</a>
+   	<h2>Customer Service</h2>
+
     <div class="container">
     <div id="userFormArea" class="row"> 
     	<div class="col-md-12">
-    	    <form id="userForm">
+    	    <form id="userForm" method="post" action="/newuser">
     				<div class="form-group">
-    					<label>Enter Username</label>
-    					<input class="form-control" id="username"/>
+    					<p id="userError"></p>
+    					<label>You will be connected with an agent after entering your name below: </label>
+    					<input class="form-control" type="text" name="username" id="username" required/>
     					<br/>
-    					<input type="submit" class="btn btn-primary" value="Login" />
+    					<input type="submit" class="btn btn-primary" value="Login" id="sendUsername"/>
+		
     				</div>
     		</form>
     	</div>
@@ -42,19 +47,20 @@
     		<div class="col-md-8">
     			<div class="chat" id="chat"></div>
     			
-    			<form id="messageForm">
-    				<div class="form-group">
+    			<form id="messageForm" method="post" action="/newchat">
+    				<div class="form-group" >
     					<label>Enter Message</label>
-    					<textarea class="form-control" id="message"></textarea>
+    					<textarea class="form-control" name="message" id="message" required></textarea>
     					<br/>
-    					<input type="submit" class="btn btn-primary" value="Send Message" />
+    					<input type="submit" class="btn btn-primary" value="Send Message" id="sendMessage"/>
     				</div>
     			</form>
     		</div>
     	</div>
-    </div>
+</div> <!-- end of container -->
     
      <script>
+
     	$(function () {
     		var socket = io.connect();
     		var $messageForm = $('#messageForm');
@@ -64,7 +70,8 @@
     		var $userFormArea = $('#userFormArea');
     		var $userForm = $('#userForm');
     		var $users = $('#users');
-    		var $username = $('#username');	
+    		var $username = $('#username');
+    		var $userError = $('#userError');	
     
     		$messageForm.submit(function(e) {
     			e.preventDefault();
@@ -84,6 +91,7 @@
     					$messageArea.show();
     				}
     			});
+
     			$username.val('');
     		});
     		
@@ -94,7 +102,8 @@
     			}
     			$users.html(html);
     		});
-    	});
+
+    	});//end of top function 
     </script>
 
   </body>
